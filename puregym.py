@@ -6,6 +6,7 @@ class PuregymAPIClient():
     headers = {'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'PureGym/1523 CFNetwork/1312 Darwin/21.0.0'}
     authed = False
     home_gym_id = None
+    gyms = None
     
     def login(self, email, pin):
         self.session = requests.session()
@@ -38,7 +39,7 @@ class PuregymAPIClient():
         gym_name = gym_name.replace(' ', '').replace('-', '').lower()
         if self.gyms is None:
             self.get_list_of_gyms()
-        return min(list(self.gyms.items()), key=lambda x: textdistance.levenshtein.distance(gym_name, x[0]))
+        return max(list(self.gyms.items()), key=lambda x: textdistance.levenshtein.similarity(gym_name, x[0]))
 
     def get_home_gym(self):
         if not self.authed:
@@ -53,10 +54,13 @@ class PuregymAPIClient():
     def get_gym_attendance(self, gym, return_name=False):
         if not self.authed:
             return PermissionError('Not authed: call login(email, pin)')
-        if gym_id is None:
+        if gym is None:
             if self.home_gym_id is None:
                 self.get_home_gym()
             gym_id = self.home_gym_id
+        elif isinstance(gym, int):
+            gym_id = gym
+            gym = None
         else:
             gym, gym_id = self.get_gym(gym)  # name->id
         response = self.session.get(f'https://capi.puregym.com/api/v1/gyms/{gym_id}/attendance', headers=self.headers)
