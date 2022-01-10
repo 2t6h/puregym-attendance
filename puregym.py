@@ -50,7 +50,7 @@ class PuregymAPIClient():
         else:
             return ValueError('Response '+str(response.status_code))
     
-    def get_gym_attendance(self, gym):
+    def get_gym_attendance(self, gym, return_name=False):
         if not self.authed:
             return PermissionError('Not authed: call login(email, pin)')
         if gym_id is None:
@@ -61,7 +61,10 @@ class PuregymAPIClient():
             gym, gym_id = self.get_gym(gym)  # name->id
         response = self.session.get(f'https://capi.puregym.com/api/v1/gyms/{gym_id}/attendance', headers=self.headers)
         if response.status_code == 200:
-            return response.json()['totalPeopleInGym']
+            n = response.json()['totalPeopleInGym']
+            if return_name:
+                return n, gym
+            return n
         else:
             return response.raise_for_status()
 
