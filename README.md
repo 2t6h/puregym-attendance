@@ -2,12 +2,17 @@
 
 puregym-attendance is a Python client to query the PureGym Mobile API for live gym attendance statistics.
 
+## Dependancies
+
+TextDistance -- pip install textdistance
+
 ## Usage
 
 ```python
-client = PuregymAPIClient()
-client.login(email, pin)
-print(client.get_gym_attendance())
+puregym.py [email] [pin]
+
+Optional Arguments
+--gym [gym name OR gym ID] (defaults to puregym home gym)
 ```
 
 ## Contributing
