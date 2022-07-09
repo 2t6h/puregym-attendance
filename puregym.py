@@ -72,6 +72,17 @@ class PuregymAPIClient():
         else:
             return response.raise_for_status()
 
+    def get_member_activity(self):
+        if not self.authed:
+            return PermissionError("Not authed: call login(email, pin)")
+
+        response = self.session.get("https://capi.puregym.com/api/v1/member/activity", headers=self.headers)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return ValueError("Response " + str(response.status_code))
+
+
 if __name__ == '__main__':
     from argparse import ArgumentParser
     parser = ArgumentParser()
@@ -83,3 +94,4 @@ if __name__ == '__main__':
     client = PuregymAPIClient()
     client.login(args.email, args.pin)
     print(client.get_gym_attendance(args.gym))
+    print(client.get_member_activity())
