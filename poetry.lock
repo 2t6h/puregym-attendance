@@ -1,0 +1,110 @@
+[[package]]
+name = "certifi"
+version = "2022.6.15"
+description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
+name = "charset-normalizer"
+version = "2.1.1"
+description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.extras]
+unicode_backport = ["unicodedata2"]
+
+[[package]]
+name = "idna"
+version = "3.3"
+description = "Internationalized Domain Names in Applications (IDNA)"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
+name = "requests"
+version = "2.28.1"
+description = "Python HTTP for Humans."
+category = "main"
+optional = false
+python-versions = ">=3.7, <4"
+
+[package.dependencies]
+certifi = ">=2017.4.17"
+charset-normalizer = ">=2,<3"
+idna = ">=2.5,<4"
+urllib3 = ">=1.21.1,<1.27"
+
+[package.extras]
+socks = ["PySocks (>=1.5.6,!=1.5.7)"]
+use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+
+[[package]]
+name = "textdistance"
+version = "4.4.0"
+description = "Compute distance between the two texts."
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.extras]
+dameraulevenshtein = ["rapidfuzz (>=2.6.0)", "jellyfish", "pyxdameraulevenshtein"]
+hamming = ["python-levenshtein", "rapidfuzz (>=2.6.0)", "jellyfish", "distance", "abydos"]
+jaro = ["rapidfuzz (>=2.6.0)", "python-levenshtein"]
+jarowinkler = ["rapidfuzz (>=2.6.0)", "jellyfish"]
+levenshtein = ["rapidfuzz (>=2.6.0)", "python-levenshtein"]
+all = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)", "distance", "pylev", "py-stringmatching", "tabulate"]
+benchmark = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)", "distance", "pylev", "py-stringmatching", "tabulate"]
+benchmarks = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)", "distance", "pylev", "py-stringmatching", "tabulate"]
+common = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)"]
+extra = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)"]
+extras = ["abydos", "jellyfish", "numpy", "python-levenshtein", "pyxdameraulevenshtein", "rapidfuzz (>=2.6.0)"]
+test = ["hypothesis", "isort", "numpy", "pytest"]
+
+[[package]]
+name = "urllib3"
+version = "1.26.12"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
+
+[package.extras]
+brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
+secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "urllib3-secure-extra", "ipaddress"]
+socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.8"
+content-hash = "dd6862c91e350879160fd1410d9d4ab63783ac16adce6a789405ec492b972cca"
+
+[metadata.files]
+certifi = [
+    {file = "certifi-2022.6.15-py3-none-any.whl", hash = "sha256:fe86415d55e84719d75f8b69414f6438ac3547d2078ab91b67e779ef69378412"},
+    {file = "certifi-2022.6.15.tar.gz", hash = "sha256:84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"},
+]
+charset-normalizer = [
+    {file = "charset-normalizer-2.1.1.tar.gz", hash = "sha256:5a3d016c7c547f69d6f81fb0db9449ce888b418b5b9952cc5e6e66843e9dd845"},
+    {file = "charset_normalizer-2.1.1-py3-none-any.whl", hash = "sha256:83e9a75d1911279afd89352c68b45348559d1fc0506b054b346651b5e7fee29f"},
+]
+idna = [
+    {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
+    {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
+]
+requests = [
+    {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
+    {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
+]
+textdistance = [
+    {file = "textdistance-4.4.0-py3-none-any.whl", hash = "sha256:d764185db82dd7c068537e1965ce18e169adc8bd9606e43f0b707356987e774a"},
+    {file = "textdistance-4.4.0.tar.gz", hash = "sha256:33318943f4d5d5f05d577a0dbedb1e4e83bf6a35153e8bceace52cc51e1f08e3"},
+]
+urllib3 = [
+    {file = "urllib3-1.26.12-py2.py3-none-any.whl", hash = "sha256:b930dd878d5a8afb066a637fbb35144fe7901e3b209d1cd4f524bd0e9deee997"},
+    {file = "urllib3-1.26.12.tar.gz", hash = "sha256:3fa96cf423e6987997fc326ae8df396db2a8b7c667747d47ddd8ecba91f4a74e"},
+]
