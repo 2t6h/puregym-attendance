@@ -2,11 +2,15 @@
 
 puregym-attendance is a Python client to query the PureGym Mobile API for live gym attendance statistics.
 
-## Dependancies
+## Dependencies
 
 [Poetry](https://python-poetry.org/docs/basic-usage/) - `pip install poetry`
 
-`poetry install` will install the necessary packages into a venv from there. `poetry shell` will enter into that venv for development, or `poetry run python puregym.py` (with required arguments as per Usage section) will run the script inside the venv without you leaving your local environment.
+  - `poetry install` will install the necessary packages into a venv from there.
+
+  - `poetry shell` will enter into that venv for development.
+
+  - `poetry run python puregym.py [email] [pin]` (per the Usage section) will run the script inside the venv without leaving your local environment.
 
 ## Usage
 
