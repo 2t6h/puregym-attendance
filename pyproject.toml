@@ -1,6 +1,6 @@
 [project]
 name = "puregym_attendance"
-version = "0.1.1"
+version = "2.0"
 description = "A python client to query the PureGym mobile API for live gym attendance"
 authors = [
     {name = "Tom Hollingsworth", email = "tom@holli.dev"}
