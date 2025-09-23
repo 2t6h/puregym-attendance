@@ -1,6 +1,9 @@
-# puregym-attendance
+# PureGym Attendance
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/puregym-attendance?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=BLUE&left_text=downloads)](https://pepy.tech/projects/puregym-attendance)
+![GitHub contributors](https://img.shields.io/github/contributors/2t6h/puregym-attendance)
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/2t6h/puregym-attendance)
 
-puregym-attendance is a Python client to query the PureGym Mobile API for live gym attendance statistics.
+PureGym Attendance is a Python client to query the PureGym mobile API for live gym attendance statistics.
 
 ## Installation
 
