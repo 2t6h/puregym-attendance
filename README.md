@@ -13,8 +13,10 @@ pip install puregym_attendance
 ```python
 from puregym_attendance import PuregymAPIClient
 
-client = PuregymAPIClient()
-client.login(args.email, args.pin)
+client = PuregymAPIClient(
+    email="example@email.com",
+    pin=123456
+)
 print(client.get_gym_attendance())
 ```
 

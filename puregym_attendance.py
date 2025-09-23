@@ -4,11 +4,10 @@ import textdistance
 
 class PuregymAPIClient():
     headers = {'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': 'PureGym/1523 CFNetwork/1312 Darwin/21.0.0'}
-    authed = False
     home_gym_id = None
     gyms = None
     
-    def login(self, email, pin):
+    def __init__(self, email, pin):
         self.session = requests.session()
         data = {
             'grant_type': 'password',
@@ -19,18 +18,14 @@ class PuregymAPIClient():
         }
         response = self.session.post('https://auth.puregym.com/connect/token', headers=self.headers, data=data)
         if response.status_code == 200:
-            self.auth_json = response.json()
-            self.authed = True
-            self.headers['Authorization'] = 'Bearer '+self.auth_json['access_token']
+            self.headers['Authorization'] = 'Bearer ' + response.json()['access_token']
         else:
             return response.raise_for_status()
     
     def get_list_of_gyms(self):
-        if not self.authed:
-            return PermissionError('Not authed: call login(email, pin)')
-        response = self.session.get(f'https://capi.puregym.com/api/v1/gyms/', headers=self.headers)
+        response = self.session.get(f'https://capi.puregym.com/api/v2/gyms/', headers=self.headers)
         if response.status_code == 200:
-            self.gyms = {i['name'].replace(' ', '').replace('-', '').lower(): i['id'] for i in response.json()}
+            self.gyms = {i['Name'].replace(' ', '').replace('-', '').lower(): i['Id'] for i in response.json()}
         else:
             return ValueError('Response '+str(response.status_code))
     
@@ -42,41 +37,32 @@ class PuregymAPIClient():
         return max(list(self.gyms.items()), key=lambda x: textdistance.levenshtein.similarity(gym_name, x[0]))
 
     def get_home_gym(self):
-        if not self.authed:
-            return PermissionError('Not authed: call login(email, pin)')
-
-        response = self.session.get('https://capi.puregym.com/api/v1/member', headers=self.headers)
+        response = self.session.get('https://capi.puregym.com/api/v2/member', headers=self.headers)
         if response.status_code == 200:
-            self.home_gym_id = response.json()['homeGymId']
+            home_gym = response.json()['HomeGym']
+            self.home_gym_id = home_gym['Id']
+            return home_gym
         else:
             return ValueError('Response '+str(response.status_code))
     
-    def get_gym_attendance(self, gym, return_name=False):
-        if not self.authed:
-            return PermissionError('Not authed: call login(email, pin)')
+    def get_gym_attendance(self, gym=None):
         if gym is None:
             if self.home_gym_id is None:
                 self.get_home_gym()
             gym_id = self.home_gym_id
         elif isinstance(gym, int):
             gym_id = gym
-            gym = None
         else:
             gym, gym_id = self.get_gym(gym)  # name->id
-        response = self.session.get(f'https://capi.puregym.com/api/v1/gyms/{gym_id}/attendance', headers=self.headers)
+        response = self.session.get(f'https://capi.puregym.com/api/v2/gymSessions/gym?gymId={gym_id}', headers=self.headers)
         if response.status_code == 200:
-            n = response.json()['totalPeopleInGym']
-            if return_name:
-                return n, gym
+            n = response.json()['TotalPeopleInGym']
             return n
         else:
             return response.raise_for_status()
 
     def get_member_activity(self):
-        if not self.authed:
-            return PermissionError("Not authed: call login(email, pin)")
-
-        response = self.session.get("https://capi.puregym.com/api/v1/member/activity", headers=self.headers)
+        response = self.session.get("https://capi.puregym.com/api/v2/gymSessions/member", headers=self.headers)
         if response.status_code == 200:
             return response.json()
         else:
@@ -90,8 +76,10 @@ if __name__ == '__main__':
     parser.add_argument('pin')
     parser.add_argument('--gym', default=None)
     args = parser.parse_args()
-    
-    client = PuregymAPIClient()
-    client.login(args.email, args.pin)
-    print(client.get_gym_attendance(args.gym))
+
+    client = PuregymAPIClient(
+        email=args.email,
+        pin=args.pin
+    )
+    print(f"Current attendance: {client.get_gym_attendance(args.gym)}")
     print(client.get_member_activity())
